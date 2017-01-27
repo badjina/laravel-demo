@@ -1,0 +1,24 @@
+FROM alpine
+ 
+RUN apk add --update nginx nginx php7 php7-fpm php7-curl php7-mysqli php7-mbstring php7-xml php7-zip && rm -rf /var/cache/apk/*
+
+RUN mkdir -p /var/www/
+
+COPY default /etc/nginx/sites-available/
+
+RUN mkdir -p /run/php/
+
+COPY default /etc/nginx/sites-available/
+COPY php7.0-fpm.sock /run/php/
+
+CMD ["composer", "install"]
+
+CMD ["nginx", "-g", "daemon off;"]
+
+# mysql-server-5.7
+#    15 - php artisan cache:clear
+#    16 - mysql -u root -p (then put your root password)
+#    17 - CREATE DATABASE laravel_blog;
+#    18 - write exit and tap enter
+#    19 - php artisan migrate
+#    20 - go to browser you will see the index page

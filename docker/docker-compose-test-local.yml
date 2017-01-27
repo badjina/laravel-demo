@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  app:
+    build: .
+    image: laravel-demo
+
+  unit:
+    image: composer
+    volumes:
+      - ../:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "composer install && ./vendor/bin/phpunit"
+
+  staging-dep:
+    image: laravel-demo
+    depends_on:
+      - db
+
+  staging:
+    extends:
+      service: unit
+    environment:
+      - HOST_IP=staging-dep:8080
+    command: bash -c "go get -d -v -t && go test --tags integration -v"
+
+  production:
+    extends:
+      service: unit
+    environment:
+      - HOST_IP=${HOST_IP}
+    network_mode: host
+    command: bash -c "go get -d -v -t && go test --tags integration -v"
+
+  db:
+    image: mysql
+    
