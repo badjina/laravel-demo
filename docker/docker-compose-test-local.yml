@@ -11,7 +11,7 @@ services:
     volumes:
       - ../:/usr/src/app
     working_dir: /usr/src/app
-    command: bash -c "composer install && ./vendor/bin/phpunit"
+    command: bash -c "composer install && ./vendor/bin/phpunit && tar -cvf laravel-demo.tar ."
 
   staging-dep:
     image: laravel-demo
