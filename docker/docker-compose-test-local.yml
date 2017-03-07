@@ -34,4 +34,6 @@ services:
     command: bash -c "go get -d -v -t && go test --tags integration -v"
 
   db:
-    image: mysql
+    image: postgres
+    #image: mysql
+
