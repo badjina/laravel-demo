@@ -23,7 +23,7 @@ services:
       service: unit
     environment:
       - HOST_IP=staging-dep:8080
-    command: bash -c "go get -d -v -t && go test --tags integration -v"
+    command: bash -c "./vendor/bin/phpunit"
 
   production:
     extends:
