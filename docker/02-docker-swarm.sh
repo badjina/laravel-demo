@@ -1,10 +1,5 @@
 #docker-swarm
 
-// add version to images and containers
-docker-compose -f docker-compose-test-local.yml run —rm unit
-
-docker build -f docker/Dockerfile -t laravel-demo .
-
 for i in 1 2 3; do
     docker-machine create -d virtualbox node-$i;
 done
