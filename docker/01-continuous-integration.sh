@@ -11,38 +11,23 @@ eval $(docker-machine env laravel-demo)
 
 cat docker-compose-test-local.yml
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    run --rm unit
+docker-compose -f docker/docker-compose-test-local.yml run --rm unit
 
-docker build -t  laravel-demo .
-
+docker build -f docker/Dockerfile -t laravel-demo .
 
 docker images
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    up -d staging-dep
+docker-compose -f docker/docker-compose-test-local.yml up -d staging-dep
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    ps
+docker-compose -f docker/docker-compose-test-local.yml ps
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    run --rm staging
+docker-compose -f docker/docker-compose-test-local.yml run --rm staging
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    down
+docker-compose -f docker/docker-compose-test-local.yml down
 
-docker-compose \
-    -f docker-compose-test-local.yml \
-    ps
+docker-compose -f docker/docker-compose-test-local.yml ps
 
-docker-compose \
-    -f docker-compose-local.yml \
-    up -d registry
+docker-compose -f docker/docker-compose-local.yml up -d registry
 
 docker pull alpine
 
