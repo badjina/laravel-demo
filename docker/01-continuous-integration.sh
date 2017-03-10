@@ -1,13 +1,13 @@
 #continuous-intergration => refactor
-git clone https://github.com/vfarcic/go-demo.git
+git clone git@github.com:badjina/laravel-demo.git ==> refactor to happyhafla
 
-cd go-demo
+cd laravel-demo ==> refactor to happyhafla
 
-docker-machine create -d virtualbox go-demo
+docker-machine create -d virtualbox laravel-demo
 
-docker-machine env go-demo
+docker-machine env laravel-demo
 
-eval $(docker-machine env go-demo)
+eval $(docker-machine env laravel-demo)
 
 cat docker-compose-test-local.yml
 
@@ -15,13 +15,8 @@ docker-compose \
     -f docker-compose-test-local.yml \
     run --rm unit
 
-ls -l *go-demo*
+docker build -t  laravel-demo .
 
-docker build -t go-demo .
-
-docker-compose \
-    -f docker-compose-test-local.yml \
-    build app
 
 docker images
 
@@ -57,8 +52,8 @@ docker push localhost:5000/alpine
 
 ls -1 docker/registry/v2/repositories/alpine/
 
-docker tag go-demo localhost:5000/go-demo:1.0
+docker tag laravel-demo badjina/laravel-demo:1.0
 
-docker push localhost:5000/go-demo:1.0
+docker push badjina/laravel-demo:1.0
 
-docker-machine rm -f go-demo
+docker-machine rm -f laravel-demo
